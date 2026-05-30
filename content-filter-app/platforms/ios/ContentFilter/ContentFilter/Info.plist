@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>Content Filter</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.contentfilter.app</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>contentfilter</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>This app requires Bluetooth access for device connectivity features.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>This app requires Bluetooth access for device connectivity features.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app requires location access for regional content filtering.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app does not require microphone access.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires photo library access to scan for inappropriate content.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires camera access to scan for inappropriate content.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>This app requires motion access for user activity monitoring.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>This app does not require health data access.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>This app does not require health data access.</string>
+	<key>NSHomeKitUsageDescription</key>
+	<string>This app does not require HomeKit access.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>This app uses Face ID for secure authentication.</string>
+	<key>NSSiriUsageDescription</key>
+	<string>This app does not require Siri access.</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>This app does not require Apple Music access.</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>Content Filter Configuration</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.contentfilter.configuration</string>
+			</array>
+		</dict>
+	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Content Filter Configuration</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.contentfilter.configuration</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>cfconfig</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/contentfilter</string>
+			</dict>
+		</dict>
+	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FontAwesome5Free-Solid.otf</string>
+		<string>FontAwesome5Free-Regular.otf</string>
+		<string>FontAwesome5Brands-Regular.otf</string>
+	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>UIStatusBarHidden</key>
+	<false/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>UIRequiresFullScreen</key>
+	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>instagram</string>
+		<string>twitter</string>
+		<string>facebook</string>
+		<string>youtube</string>
+		<string>tiktok</string>
+		<string>snapchat</string>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>This app requires local network access for content filtering and device communication.</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>This app does not track user data for advertising purposes.</string>
+	<key>NSNearbyInteractionUsageDescription</key>
+	<string>This app does not require nearby interaction access.</string>
+	<key>NSNearbyInteractionAllowOnceUsageDescription</key>
+	<string>This app does not require nearby interaction access.</string>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>es</string>
+		<string>fr</string>
+		<string>de</string>
+		<string>it</string>
+		<string>pt</string>
+		<string>ru</string>
+		<string>ja</string>
+		<string>ko</string>
+		<string>zh</string>
+	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>UIPrerenderedIcon</key>
+	<false/>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<key>LSMinimumSystemVersion</key>
+	<string>12.0</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This app does not require contacts access.</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>This app does not require reminders access.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>This app does not require calendar access.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app requires location access for regional content filtering and security features.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app requires location access for regional content filtering and security features.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app requires location access for regional content filtering and security features.</string>
+	<key>NSAppleScriptEnabled</key>
+	<false/>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>NSSupportsAutomaticGraphicsSwitching</key>
+	<true/>
+	<key>NSRequiresAquaSystemAppearance</key>
+	<false/>
+	<key>CFBundleIconFile</key>
+	<string>Icon</string>
+	<key>CFBundleIconName</key>
+	<string>Icon</string>
+	<key>NSMainNibFile</key>
+	<string>MainMenu</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+</dict>
+</plist>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Blocked</title>
+    <link rel="stylesheet" href="blocked.css">
+</head>
+<body>
+    <div class="container">
+        <div class="icon">🚫</div>
+        <h1>🚫 Content Blocked</h1>
+        <div class="subtitle">This content has been blocked by Content Filtering Extension</div>
+
+        <div class="details">
+            <div class="detail-row">
+                <span class="detail-label">Status:</span>
+                <span class="detail-value">Blocked</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Category:</span>
+                <span id="category" class="detail-value">Unknown</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Risk Score:</span>
+                <span id="riskScore" class="detail-value risk-high">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Blocked by:</span>
+                <span class="detail-value">Content Filtering Extension</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Timestamp:</span>
+                <span id="timestamp" class="detail-value">-</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-primary" id="goBackBtn">⬅️ Go Back</button>
+            <button class="btn btn-secondary" id="openOptionsBtn">⚙️ Extension Settings</button>
+        </div>
+
+        <div class="footer">
+            <div>🛡️ Content Filtering Extension v1.0.0</div>
+            <div>Advanced content filtering and blocking</div>
+        </div>
+    </div>
+
+    <script src="blocked.js"></script>
+</body>
+</html>

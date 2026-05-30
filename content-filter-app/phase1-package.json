@@ -1,0 +1,52 @@
+{
+  "name": "content-filter-api",
+  "version": "1.0.0",
+  "description": "Production-ready content filtering API with real-time analysis",
+  "main": "phase1-server.js",
+  "scripts": {
+    "start": "node phase1-server.js",
+    "dev": "nodemon phase1-server.js",
+    "test": "node test-phase1.js",
+    "test:api": "node test-api.js",
+    "test:load": "node test-load.js",
+    "install-deps": "npm install",
+    "clean": "rm -rf data/*.db",
+    "reset": "npm run clean && npm start",
+    "docker:build": "docker build -t content-filter-api .",
+    "docker:run": "docker run -p 3000:3000 content-filter-api"
+  },
+  "keywords": [
+    "content-filter",
+    "api",
+    "sqlite",
+    "express",
+    "url-analysis",
+    "risk-scoring"
+  ],
+  "author": "Content Filter Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "sqlite3": "^5.1.0",
+    "cors": "^2.8.5",
+    "helmet": "^6.0.0",
+    "morgan": "^1.10.0",
+    "compression": "^1.7.4",
+    "axios": "^1.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/content-filter/api"
+  },
+  "bugs": {
+    "url": "https://github.com/content-filter/api/issues"
+  },
+  "homepage": "https://content-filter.app"
+}

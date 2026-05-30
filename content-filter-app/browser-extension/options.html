@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Filter - Options</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .settings-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .settings-section h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 8px;
+        }
+
+        .setting-row {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .setting-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .setting-label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .setting-description {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-bottom: 8px;
+        }
+
+        .setting-input {
+            padding: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+        }
+
+        .setting-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .setting-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .setting-select {
+            padding: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 14px;
+        }
+
+        .setting-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 25px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 25px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #4ade80;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(25px);
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-right: 10px;
+        }
+
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .status-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .status-success {
+            background: rgba(74, 222, 128, 0.2);
+            border: 1px solid rgba(74, 222, 128, 0.5);
+            color: #d1fae5;
+        }
+
+        .status-error {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            color: #fecaca;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🛡️</div>
+            <h1>Content Filter Settings</h1>
+            <div class="subtitle">Configure your content filtering preferences</div>
+        </div>
+
+        <form id="settingsForm">
+            <div class="settings-section">
+                <h2>🌐 API Configuration</h2>
+
+                <div class="setting-row">
+                    <div class="setting-label">API Base URL</div>
+                    <div class="setting-description">
+                        The URL of your Content Filter API server (e.g., http://localhost:3000)
+                    </div>
+                    <input type="url" id="apiUrl" class="setting-input"
+                           placeholder="http://localhost:3000" required>
+                </div>
+
+                <div class="setting-row">
+                    <button type="button" id="testApiBtn" class="btn btn-secondary">
+                        🧪 Test API Connection
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2>⚙️ Filtering Options</h2>
+
+                <div class="setting-row">
+                    <div class="setting-label">Enable Content Filtering</div>
+                    <div class="setting-description">
+                        Master switch to enable or disable all content filtering
+                    </div>
+                    <div class="setting-toggle">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="filteringEnabled">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span id="filteringStatus">Enabled</span>
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <div class="setting-label">Cache Timeout</div>
+                    <div class="setting-description">
+                        How long to cache filtering decisions (in minutes)
+                    </div>
+                    <select id="cacheTimeout" class="setting-select">
+                        <option value="1">1 minute</option>
+                        <option value="5" selected>5 minutes</option>
+                        <option value="15">15 minutes</option>
+                        <option value="30">30 minutes</option>
+                        <option value="60">1 hour</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2>📊 Statistics</h2>
+
+                <div class="setting-row">
+                    <div class="setting-label">Websites Blocked</div>
+                    <div class="setting-description">
+                        Total number of websites blocked by this extension
+                    </div>
+                    <div style="font-size: 24px; font-weight: bold; color: #ef4444;" id="blockedCount">
+                        0
+                    </div>
+                </div>
+
+                <div class="setting-row">
+                    <button type="button" id="resetStatsBtn" class="btn btn-secondary">
+                        📊 Reset Statistics
+                    </button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h2>🔧 Advanced</h2>
+
+                <div class="setting-row">
+                    <button type="button" id="clearCacheBtn" class="btn btn-secondary">
+                        🧹 Clear Cache
+                    </button>
+                    <button type="button" id="exportSettingsBtn" class="btn btn-secondary">
+                        📤 Export Settings
+                    </button>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button type="submit" class="btn btn-primary" style="padding: 15px 40px; font-size: 16px;">
+                    💾 Save Settings
+                </button>
+            </div>
+        </form>
+
+        <div id="statusMessage" class="status-message" style="display: none;"></div>
+
+        <div class="footer">
+            <div>Content Filtering Extension v1.0.0</div>
+            <div>Advanced content filtering and blocking</div>
+        </div>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+</html>

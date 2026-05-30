@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Filter - Management Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>Content Filter Dashboard</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#overview" class="nav-link active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Overview
+                </a>
+                <a href="#analytics" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    Analytics
+                </a>
+                <a href="#users" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    Users
+                </a>
+                <a href="#settings" class="nav-link">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+                <a href="#logs" class="nav-link">
+                    <i class="fas fa-list"></i>
+                    Logs
+                </a>
+            </div>
+            <div class="nav-user">
+                <span class="user-name">Admin User</span>
+                <i class="fas fa-user-circle"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Overview Section -->
+        <section id="overview" class="section active">
+            <div class="section-header">
+                <h1>System Overview</h1>
+                <p>Real-time monitoring and control of your content filtering system</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalBlocked">0</h3>
+                        <p>Total Blocked</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="activeUsers">0</h3>
+                        <p>Active Users</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="blockedSites">150+</h3>
+                        <p>Sites Blocked</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="systemStatus">Online</h3>
+                        <p>System Status</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="activity-section">
+                <div class="section-header">
+                    <h2>Recent Activity</h2>
+                    <button class="btn-secondary">
+                        <i class="fas fa-sync"></i>
+                        Refresh
+                    </button>
+                </div>
+
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <div class="activity-info">
+                            <p><strong>pornhub.com</strong> was blocked</p>
+                            <span>2 minutes ago</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <div class="activity-info">
+                            <p>New user <strong>john.doe@example.com</strong> registered</p>
+                            <span>5 minutes ago</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-ban"></i>
+                        </div>
+                        <div class="activity-info">
+                            <p><strong>xvideos.com</strong> was blocked</p>
+                            <span>8 minutes ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="section">
+            <div class="section-header">
+                <h1>Analytics & Reports</h1>
+                <p>Detailed insights into your content filtering system</p>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="chart-container">
+                    <h3>Blocking Trends</h3>
+                    <canvas id="blockingChart"></canvas>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Top Blocked Sites</h3>
+                    <canvas id="sitesChart"></canvas>
+                </div>
+            </div>
+
+            <div class="analytics-controls">
+                <div class="date-picker">
+                    <label for="dateRange">Date Range:</label>
+                    <select id="dateRange">
+                        <option value="7d">Last 7 days</option>
+                        <option value="30d">Last 30 days</option>
+                        <option value="90d">Last 90 days</option>
+                    </select>
+                </div>
+
+                <button class="btn-primary">
+                    <i class="fas fa-download"></i>
+                    Export Report
+                </button>
+            </div>
+        </section>
+
+        <!-- Users Section -->
+        <section id="users" class="section">
+            <div class="section-header">
+                <h1>User Management</h1>
+                <p>Manage users and their filtering preferences</p>
+            </div>
+
+            <div class="users-controls">
+                <button class="btn-primary">
+                    <i class="fas fa-user-plus"></i>
+                    Add User
+                </button>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search users...">
+                </div>
+            </div>
+
+            <div class="users-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Status</th>
+                            <th>Blocked Count</th>
+                            <th>Last Activity</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <i class="fas fa-user-circle"></i>
+                                    <span>john.doe@example.com</span>
+                                </div>
+                            </td>
+                            <td><span class="status-badge active">Active</span></td>
+                            <td>47</td>
+                            <td>2 minutes ago</td>
+                            <td>
+                                <button class="btn-icon">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn-icon danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="section">
+            <div class="section-header">
+                <h1>System Settings</h1>
+                <p>Configure your content filtering system</p>
+            </div>
+
+            <div class="settings-container">
+                <div class="settings-group">
+                    <h3>General Settings</h3>
+                    <div class="setting-item">
+                        <label for="systemEnabled">Enable Content Filtering</label>
+                        <input type="checkbox" id="systemEnabled" checked>
+                    </div>
+
+                    <div class="setting-item">
+                        <label for="apiUrl">API Base URL</label>
+                        <input type="url" id="apiUrl" value="http://localhost:3000">
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h3>Security Settings</h3>
+                    <div class="setting-item">
+                        <label for="requireAuth">Require Authentication</label>
+                        <input type="checkbox" id="requireAuth" checked>
+                    </div>
+
+                    <div class="setting-item">
+                        <label for="sessionTimeout">Session Timeout (minutes)</label>
+                        <input type="number" id="sessionTimeout" value="60">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logs Section -->
+        <section id="logs" class="section">
+            <div class="section-header">
+                <h1>System Logs</h1>
+                <p>Monitor system activity and security events</p>
+            </div>
+
+            <div class="logs-controls">
+                <div class="log-filters">
+                    <select id="logLevel">
+                        <option value="all">All Levels</option>
+                        <option value="error">Errors</option>
+                        <option value="warning">Warnings</option>
+                        <option value="info">Info</option>
+                    </select>
+
+                    <input type="text" id="logSearch" placeholder="Search logs...">
+                </div>
+
+                <button class="btn-secondary">
+                    <i class="fas fa-download"></i>
+                    Export Logs
+                </button>
+            </div>
+
+            <div class="logs-container">
+                <div class="log-entry">
+                    <span class="log-time">14:32:15</span>
+                    <span class="log-level info">INFO</span>
+                    <span class="log-message">User john.doe@example.com logged in</span>
+                </div>
+
+                <div class="log-entry">
+                    <span class="log-time">14:30:22</span>
+                    <span class="log-level warning">WARNING</span>
+                    <span class="log-message">Failed login attempt from 192.168.1.100</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Filter Desktop</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>Content Filter Desktop</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#" class="nav-link active" data-section="overview">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Overview
+                </a>
+                <a href="#" class="nav-link" data-section="monitoring">
+                    <i class="fas fa-eye"></i>
+                    Monitoring
+                </a>
+                <a href="#" class="nav-link" data-section="analytics">
+                    <i class="fas fa-chart-bar"></i>
+                    Analytics
+                </a>
+                <a href="#" class="nav-link" data-section="settings">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+                <a href="#" class="nav-link" data-section="logs">
+                    <i class="fas fa-list"></i>
+                    Logs
+                </a>
+            </div>
+            <div class="nav-status">
+                <div class="status-indicator active">
+                    <i class="fas fa-circle"></i>
+                    <span>Active</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Overview Section -->
+        <section id="overview" class="section active">
+            <div class="section-header">
+                <h1>System Overview</h1>
+                <p>Real-time monitoring and control of your content filtering system</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalBlocked">0</h3>
+                        <p>Total Blocked</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="blockedSites">150+</h3>
+                        <p>Sites Blocked</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="todayBlocked">0</h3>
+                        <p>Today</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="systemStatus">Online</h3>
+                        <p>System Status</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Info -->
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>System Information</h3>
+                    <div class="info-item">
+                        <span class="label">Platform:</span>
+                        <span class="value" id="platform">Unknown</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">CPU Usage:</span>
+                        <span class="value" id="cpuUsage">0%</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Memory Usage:</span>
+                        <span class="value" id="memoryUsage">0%</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <i class="fas fa-ban"></i>
+                            <span>pornhub.com blocked</span>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-ban"></i>
+                            <span>xvideos.com blocked</span>
+                        </div>
+                        <div class="activity-item">
+                            <i class="fas fa-ban"></i>
+                            <span>beeg.com blocked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Monitoring Section -->
+        <section id="monitoring" class="section">
+            <div class="section-header">
+                <h1>Real-time Monitoring</h1>
+                <p>Live monitoring of network activity and content filtering</p>
+            </div>
+
+            <div class="monitoring-grid">
+                <div class="monitoring-card">
+                    <h3>Network Activity</h3>
+                    <div class="activity-monitor">
+                        <div class="activity-item">
+                            <span class="domain">pornhub.com</span>
+                            <span class="status blocked">Blocked</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="domain">google.com</span>
+                            <span class="status allowed">Allowed</span>
+                        </div>
+                        <div class="activity-item">
+                            <span class="domain">xvideos.com</span>
+                            <span class="status blocked">Blocked</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="monitoring-card">
+                    <h3>Active Processes</h3>
+                    <div class="process-list">
+                        <div class="process-item">
+                            <i class="fas fa-chrome"></i>
+                            <span>Chrome Browser</span>
+                        </div>
+                        <div class="process-item">
+                            <i class="fas fa-firefox"></i>
+                            <span>Firefox Browser</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analytics Section -->
+        <section id="analytics" class="section">
+            <div class="section-header">
+                <h1>Analytics & Reports</h1>
+                <p>Detailed insights into your content filtering system</p>
+            </div>
+
+            <div class="analytics-controls">
+                <div class="date-picker">
+                    <label for="dateRange">Date Range:</label>
+                    <select id="dateRange">
+                        <option value="7d">Last 7 days</option>
+                        <option value="30d">Last 30 days</option>
+                        <option value="90d">Last 90 days</option>
+                    </select>
+                </div>
+
+                <button class="btn-primary">
+                    <i class="fas fa-download"></i>
+                    Export Report
+                </button>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <h3>Blocking Trends</h3>
+                    <canvas id="blockingChart" width="400" height="200"></canvas>
+                </div>
+
+                <div class="chart-container">
+                    <h3>Top Blocked Sites</h3>
+                    <canvas id="sitesChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="section">
+            <div class="section-header">
+                <h1>System Settings</h1>
+                <p>Configure your content filtering system</p>
+            </div>
+
+            <div class="settings-container">
+                <div class="settings-group">
+                    <h3>General Settings</h3>
+                    <div class="setting-item">
+                        <label for="filterEnabled">Enable Content Filtering</label>
+                        <input type="checkbox" id="filterEnabled" checked>
+                    </div>
+
+                    <div class="setting-item">
+                        <label for="apiUrl">API Base URL</label>
+                        <input type="url" id="apiUrl" value="http://localhost:3000">
+                    </div>
+
+                    <div class="setting-item">
+                        <label for="autoStart">Start Automatically</label>
+                        <input type="checkbox" id="autoStart" checked>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <h3>Security Settings</h3>
+                    <div class="setting-item">
+                        <label for="requirePassword">Require Password</label>
+                        <input type="checkbox" id="requirePassword">
+                    </div>
+
+                    <div class="setting-item">
+                        <label for="blockNotifications">Show Block Notifications</label>
+                        <input type="checkbox" id="blockNotifications" checked>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-actions">
+                <button class="btn-primary" onclick="saveSettings()">
+                    <i class="fas fa-save"></i>
+                    Save Settings
+                </button>
+                <button class="btn-secondary" onclick="testApiConnection()">
+                    <i class="fas fa-plug"></i>
+                    Test API
+                </button>
+            </div>
+        </section>
+
+        <!-- Logs Section -->
+        <section id="logs" class="section">
+            <div class="section-header">
+                <h1>System Logs</h1>
+                <p>Monitor system activity and security events</p>
+            </div>
+
+            <div class="logs-controls">
+                <div class="log-filters">
+                    <select id="logLevel" title="Log Level Filter">
+                        <option value="all">All Levels</option>
+                        <option value="error">Errors</option>
+                        <option value="warning">Warnings</option>
+                        <option value="info">Info</option>
+                    </select>
+
+                    <input type="text" id="logSearch" placeholder="Search logs...">
+                </div>
+
+                <button class="btn-secondary">
+                    <i class="fas fa-download"></i>
+                    Export Logs
+                </button>
+            </div>
+
+            <div class="logs-container">
+                <div class="log-entry">
+                    <span class="log-time">14:32:15</span>
+                    <span class="log-level info">INFO</span>
+                    <span class="log-message">Content filtering started</span>
+                </div>
+
+                <div class="log-entry">
+                    <span class="log-time">14:30:22</span>
+                    <span class="log-level warning">WARNING</span>
+                    <span class="log-message">pornhub.com blocked</span>
+                </div>
+
+                <div class="log-entry">
+                    <span class="log-time">14:28:45</span>
+                    <span class="log-level info">INFO</span>
+                    <span class="log-message">Network monitoring active</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-spinner">
+            <i class="fas fa-shield-alt"></i>
+        </div>
+        <p>Loading Content Filter Desktop...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,355 @@
+name: Content Filter CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [ published ]
+
+env:
+  NODE_VERSION: '18.x'
+  JAVA_VERSION: '11'
+
+jobs:
+  # Code Quality Checks
+  quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: |
+        npm install
+        cd browser-extension && npm install
+        cd ../platforms/desktop && npm install
+        cd ../../testing && npm install
+
+    - name: Run Linting
+      run: |
+        npm run lint
+        cd browser-extension && npm run lint
+        cd ../platforms/desktop && npm run lint
+
+    - name: Check Code Formatting
+      run: |
+        npx prettier --check "**/*.{js,ts,html,css,json,md}"
+
+    - name: Security Audit
+      run: |
+        npm audit --audit-level=moderate
+        cd browser-extension && npm audit --audit-level=moderate
+        cd ../platforms/desktop && npm audit --audit-level=moderate
+
+  # Unit Tests
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: |
+        npm install
+        cd testing && npm install
+
+    - name: Run Unit Tests
+      run: cd testing && npm run test:unit
+
+    - name: Upload Coverage Reports
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./testing/coverage/lcov.info
+        flags: unit-tests
+        name: Unit Test Coverage
+
+  # Integration Tests
+  integration-tests:
+    name: Integration Tests
+    runs-on: ubuntu-latest
+    needs: unit-tests
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: |
+        npm install
+        cd testing && npm install
+
+    - name: Run Integration Tests
+      run: cd testing && npm run test:integration
+
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: integration-test-results
+        path: testing/test-results/
+
+  # Browser Extension Tests
+  extension-tests:
+    name: Browser Extension Tests
+    runs-on: ubuntu-latest
+    needs: integration-tests
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: cd browser-extension && npm install
+
+    - name: Run Extension Tests
+      run: cd browser-extension && npm run test
+
+    - name: Build Extension
+      run: cd browser-extension && npm run build
+
+    - name: Upload Extension Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: browser-extension
+        path: browser-extension/dist/
+
+  # Desktop App Build
+  desktop-build:
+    name: Desktop App Build
+    runs-on: ${{ matrix.os }}
+    needs: integration-tests
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+
+    - name: Install Dependencies
+      run: cd platforms/desktop && npm install
+
+    - name: Build Desktop App
+      run: cd platforms/desktop && npm run build
+
+    - name: Upload Desktop App Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: desktop-app-${{ matrix.os }}
+        path: platforms/desktop/dist/
+
+  # Mobile App Build
+  mobile-build:
+    name: Mobile App Build
+    runs-on: ubuntu-latest
+    needs: integration-tests
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: ${{ env.JAVA_VERSION }}
+        distribution: 'temurin'
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.10.0'
+
+    - name: Build Android App
+      run: |
+        cd platforms/android
+        ./gradlew assembleRelease
+
+    - name: Build iOS App (if macOS)
+      if: runner.os == 'macOS'
+      run: |
+        cd platforms/ios
+        xcodebuild -project ContentFilter/ContentFilter.xcodeproj -configuration Release archive
+
+    - name: Upload Mobile App Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: mobile-apps
+        path: |
+          platforms/android/app/build/outputs/apk/release/
+          platforms/ios/ContentFilter.xcarchive
+
+  # Security Scanning
+  security-scan:
+    name: Security Scanning
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Run Security Scan
+      uses: securecodewarrior/github-action-sast@master
+      with:
+        scanner: 'semgrep'
+        config: 'auto'
+
+    - name: Run Dependency Check
+      uses: dependency-check/Dependency-Check_Action@main
+      with:
+        project: 'content-filter'
+        path: .
+        format: 'ALL'
+
+    - name: Upload Security Reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-reports
+        path: reports/
+
+  # Performance Testing
+  performance-test:
+    name: Performance Testing
+    runs-on: ubuntu-latest
+    needs: integration-tests
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Install Artillery
+      run: npm install -g artillery
+
+    - name: Run Performance Tests
+      run: |
+        cd testing
+        artillery run performance-tests.yml
+
+    - name: Upload Performance Reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: performance-reports
+        path: testing/performance-reports/
+
+  # Build and Package
+  build-and-package:
+    name: Build and Package
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, security-scan]
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+
+    - name: Install Dependencies
+      run: |
+        npm install
+        cd browser-extension && npm install
+        cd ../platforms/desktop && npm install
+
+    - name: Build All Platforms
+      run: |
+        npm run build:browser
+        npm run build:desktop
+
+    - name: Package Applications
+      run: |
+        npm run package:browser
+        npm run package:desktop
+
+    - name: Create Release Archive
+      run: |
+        tar -czf content-filter-${{ github.run_number }}.tar.gz \
+          browser-extension/dist/ \
+          platforms/desktop/dist/ \
+          dashboard/ \
+          testing/coverage/
+
+    - name: Upload Release Archive
+      uses: actions/upload-artifact@v3
+      with:
+        name: release-archive
+        path: content-filter-${{ github.run_number }}.tar.gz
+
+  # Deploy to Stores (Release Only)
+  deploy:
+    name: Deploy to Stores
+    runs-on: ubuntu-latest
+    needs: build-and-package
+    if: github.event_name == 'release'
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Download Release Archive
+      uses: actions/download-artifact@v3
+      with:
+        name: release-archive
+
+    - name: Deploy Browser Extension
+      run: |
+        echo "Deploying to Chrome Web Store..."
+        # Implementation would use Chrome Web Store API
+
+    - name: Deploy Desktop App
+      run: |
+        echo "Desktop app ready for distribution"
+        # Implementation would upload to software distribution platforms
+
+    - name: Deploy Mobile Apps
+      run: |
+        echo "Mobile apps ready for app store submission"
+        # Implementation would upload to App Store and Play Store
+
+  # Notification
+  notify:
+    name: Notification
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, security-scan, performance-test]
+    if: always()
+    steps:
+    - name: Send Notification
+      run: |
+        if [ "${{ needs.unit-tests.result }}" = "success" ] && \
+           [ "${{ needs.integration-tests.result }}" = "success" ] && \
+           [ "${{ needs.security-scan.result }}" = "success" ]; then
+          echo "✅ All tests passed! Ready for deployment."
+        else
+          echo "❌ Some tests failed. Check the logs."
+          exit 1
+        fi
